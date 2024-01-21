@@ -1,4 +1,5 @@
 import hashlib
+from statistics import mean, variance
 import string
 import random as rn
 #variant 4 --- sha256
@@ -127,9 +128,13 @@ for i in range(200):
     collusion_second_attack(test)
 
 print(t1_pre)
+print(f"mean: {mean(t1_pre)}, var: {variance(t1_pre)}")
 print(t2_pre)
+print(f"mean: {mean(t2_pre)}, var: {variance(t2_pre)}")
 print(t1_col)
+print(f"mean: {mean(t1_col)}, var: {variance(t1_col)}")
 print(t2_col)
+print(f"mean: {mean(t2_col)}, var: {variance(t2_col)}")
 
 
 
