@@ -38,8 +38,10 @@ def generate_table(K, L):
 
     return X, r
 
-def preimage_search(K, L, X, hash_value):
+def preimage_search(K, L, table, hash_value):
     y = hash_value
+    X = table[0]
+    r = table[1]
     
     for j in range(L):
         if y in X:
@@ -69,22 +71,45 @@ def multi_preimage_search(K, L, Xarr, hash_value):
 
 
 #--------------------------------------------------------------------------------------------
-
 results = []
 success = 0
-tables = []
-for i in range(K[1]):
-    tables.append(generate_table(K[1], L[1]))
+X, r = generate_table(K[2], L[2])
 for i in range(N):
     x = generate_bytes(256 // 8)
     h_x = gen_hash(x)
-    preim = multi_preimage_search(K[1], L[1], tables, h_x)
+    preim = preimage_search(K[2], L[2], (X, r), h_x)
     if preim != 0:
         results.append((x, preim))
         #print(f"i: {i}, x: {x}, h_x: {h_x}, preim: {preim}")
 
 for (x, p) in results:
     if gen_hash(x) == gen_hash(p):
+        #print(f"x: {x}, h_x: {gen_hash(x)}, preim: {p}")
+        success = success + 1
+
+print(len(results))
+print(success)
+
+
+
+results = []
+success = 0
+tables = []
+m = 2
+l = 2
+for i in range(K[m]):
+    tables.append(generate_table(K[m], L[l]))
+for i in range(N):
+    x = generate_bytes(256 // 8)
+    h_x = gen_hash(x)
+    preim = multi_preimage_search(K[m], L[l], tables, h_x)
+    if preim != 0:
+        results.append((x, preim))
+        #print(f"i: {i}, x: {x}, h_x: {h_x}, preim: {preim}")
+
+for (x, p) in results:
+    if gen_hash(x) == gen_hash(p):
+        #print(f"x: {x}, h_x: {gen_hash(x)}, preim: {p}")
         success = success + 1
 
 print(len(results))
