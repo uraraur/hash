@@ -12,7 +12,6 @@ truncation = 2
 message =  "KovalMariiaVitalyivna"
 hash_message = hashlib.sha256(message.encode('UTF-8')).hexdigest()
 print(hash_message)
-print(hash_message[len(hash_message)-(truncation*2):len(hash_message)])
 hash_message = hash_message[len(hash_message)-truncation:len(hash_message)]
 
 t1_pre = []
