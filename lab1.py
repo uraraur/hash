@@ -38,6 +38,8 @@ def preimage_first_attack(m):
         hash_temp = hash_temp[len(hash_temp)-truncation:len(hash_temp)]
 
     t1_pre.append(i)
+
+    print(f"Preimage: {message + str(n)} ---- Hash: {hash_temp}")
     return n
 
 #--------------------------------------------------------------------------------------------
@@ -55,6 +57,7 @@ def preimage_second_attack(m):
         hash_temp = hash_temp[len(hash_temp)-truncation:len(hash_temp)]
 
     t2_pre.append(t)
+    print(f"Preimage: {temp} ---- Hash: {hash_temp}")
     return temp
 
 #--------------------------------------------------------------------------------------------
@@ -80,6 +83,9 @@ def collusion_first_attack(m):
         hash_temp = hash_temp[len(hash_temp)-(truncation*2):len(hash_temp)]
         
     t1_col.append(i)    
+
+    print(f"Collusion mes1: {arr[hash_temp]} ---- Hash: {hash_temp}")
+    print(f"Collusion mes2: {temp} ---- Hash: {hash_temp}")
     return (arr[hash_temp], temp)
 
 #--------------------------------------------------------------------------------------------
@@ -107,34 +113,45 @@ def collusion_second_attack(m):
         hash_temp = hash_temp[len(hash_temp)-(truncation*2):len(hash_temp)]
         
     t2_col.append(t)
+    print(f"Collusion mes1: {arr[hash_temp]} ---- Hash: {hash_temp}")
+    print(f"Collusion mes2: {temp} ---- Hash: {hash_temp}")
     return (arr[hash_temp], temp)
 
 #--------------------------------------------------------------------------------------------
 
-for i in range(200):
-    test = message + str(rn.randint(0, 1000000))
+print(f"Message: {message} ---- Message's hash: {hash_message}")
+preimage_first_attack(message)
+print(f"Message: {message} ---- Message's hash: {hash_message}")
+preimage_second_attack(message)
+collusion_first_attack(message)
+collusion_second_attack(message)
 
-    preimage_first_attack(test)
-    preimage_second_attack(test)
-    collusion_first_attack(test)
-    collusion_second_attack(test)
 
-for i in range(200):
-    test = mod_mes(message)
 
-    preimage_first_attack(test)
-    preimage_second_attack(test)
-    collusion_first_attack(test)
-    collusion_second_attack(test)
+#for i in range(200):
+    #test = message + str(rn.randint(0, 1000000))
 
-print(t1_pre)
-print(f"mean: {mean(t1_pre)}, var: {variance(t1_pre)}")
-print(t2_pre)
-print(f"mean: {mean(t2_pre)}, var: {variance(t2_pre)}")
-print(t1_col)
-print(f"mean: {mean(t1_col)}, var: {variance(t1_col)}")
-print(t2_col)
-print(f"mean: {mean(t2_col)}, var: {variance(t2_col)}")
+    #preimage_first_attack(test)
+   # preimage_second_attack(test)
+    #collusion_first_attack(test)
+   # collusion_second_attack(test)
+
+#for i in range(200):
+    #test = mod_mes(message)
+
+    #preimage_first_attack(test)
+    #preimage_second_attack(test)
+    #collusion_first_attack(test)
+    #collusion_second_attack(test)
+
+#print(t1_pre)
+#print(f"mean: {mean(t1_pre)}, var: {variance(t1_pre)}")
+#print(t2_pre)
+#print(f"mean: {mean(t2_pre)}, var: {variance(t2_pre)}")
+#print(t1_col)
+#print(f"mean: {mean(t1_col)}, var: {variance(t1_col)}")
+#print(t2_col)
+#print(f"mean: {mean(t2_col)}, var: {variance(t2_col)}")
 
 
 
